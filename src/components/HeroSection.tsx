@@ -32,7 +32,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
+    <section ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden max-w-full">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"

@@ -148,7 +148,7 @@ const TestimonialsSection = () => {
           </button>
 
           {/* Cards Container */}
-          <div className="overflow-hidden mx-6 sm:mx-10">
+          <div className="overflow-hidden mx-2 sm:mx-10">
             <motion.div
               className="flex gap-4 sm:gap-6 lg:gap-8"
               animate={{ x: `-${currentIndex * (100 / visibleCards)}%` }}
@@ -162,7 +162,7 @@ const TestimonialsSection = () => {
                 >
                   <TiltCard maxTilt={5} spotlight={true} glare={false} className="h-full rounded-xl">
                     <Card className="h-full bg-card hover:shadow-medium transition-all duration-300 border-border">
-                      <CardContent className="p-5 sm:p-6 lg:p-8">
+                      <CardContent className="p-4 sm:p-6 lg:p-8">
                       {/* Quote Icon */}
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 sm:mb-6 mx-auto">
                         <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
