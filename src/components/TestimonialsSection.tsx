@@ -164,30 +164,30 @@ const TestimonialsSection = () => {
                     <Card className="h-full bg-card hover:shadow-medium transition-all duration-300 border-border">
                       <CardContent className="p-5 sm:p-6 lg:p-8">
                       {/* Quote Icon */}
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 sm:mb-6 mx-auto">
                         <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                       </div>
 
                       {/* Rating */}
-                      <div className="flex gap-1 mb-3 sm:mb-4">
+                      <div className="flex gap-1 mb-3 sm:mb-4 justify-center">
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-primary text-primary" />
                         ))}
                       </div>
 
                       {/* Content */}
-                      <p className="text-foreground font-body text-base sm:text-lg leading-relaxed mb-4 sm:mb-6 line-clamp-4">
+                      <p className="text-foreground font-body text-base sm:text-lg leading-relaxed mb-4 sm:mb-6 line-clamp-4 text-center">
                         "{testimonial.content}"
                       </p>
 
                       {/* Author */}
-                      <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4 justify-center">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-gold rounded-full flex items-center justify-center">
                           <span className="text-primary-foreground font-medium text-base sm:text-lg">
                             {testimonial.name.charAt(0)}
                           </span>
                         </div>
-                        <div>
+                        <div className="text-left">
                           <p className="font-medium text-foreground text-base sm:text-lg">{testimonial.name}</p>
                           <p className="text-muted-foreground text-xs sm:text-sm">{testimonial.role}</p>
                         </div>

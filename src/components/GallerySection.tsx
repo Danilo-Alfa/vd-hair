@@ -116,7 +116,7 @@ const GallerySection = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               className={`relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer group ${
-                index === 0 || index === 4 ? "row-span-2" : ""
+                index === 0 || index === 4 ? "lg:row-span-2" : ""
               }`}
               onClick={() => openLightbox(index)}
               onKeyDown={(e) => {
@@ -134,7 +134,7 @@ const GallerySection = () => {
                 alt={image.alt}
                 loading="lazy"
                 className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
-                  index === 0 || index === 4 ? "h-48 sm:h-64 lg:h-full" : "h-40 sm:h-48 lg:h-64"
+                  index === 0 || index === 4 ? "h-40 sm:h-48 lg:h-full" : "h-40 sm:h-48 lg:h-64"
                 }`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
