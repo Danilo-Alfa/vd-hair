@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Check, Shield, Users, Star, Clock, Leaf } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { useRef } from "react";
 
 const reasons = [
   {
@@ -35,9 +37,26 @@ const reasons = [
 ];
 
 const WhyChooseSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
   return (
-    <section id="diferenciais" className="py-16 sm:py-20 lg:py-24 bg-gradient-warm">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="diferenciais" className="py-16 sm:py-20 lg:py-24 bg-gradient-warm relative overflow-hidden">
+      {/* Parallax Background Elements */}
+      <motion.div
+        className="absolute top-10 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        style={{ y: parallaxY }}
+      />
+      <motion.div
+        className="absolute bottom-10 left-10 w-80 h-80 bg-primary/3 rounded-full blur-3xl pointer-events-none"
+        style={{ y: parallaxY }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -68,21 +87,25 @@ const WhyChooseSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="bg-card p-5 sm:p-6 lg:p-8 rounded-2xl border border-border hover:shadow-medium transition-all duration-300"
             >
-              <div className="flex items-start gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <reason.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+              <SpotlightCard
+                className="bg-card p-5 sm:p-6 lg:p-8 rounded-2xl border border-border hover:shadow-medium transition-all duration-300 h-full"
+                spotlightSize={350}
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <reason.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-lg sm:text-xl font-medium text-foreground mb-1 sm:mb-2">
+                      {reason.title}
+                    </h3>
+                    <p className="text-muted-foreground font-body text-sm sm:text-base leading-relaxed">
+                      {reason.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-display text-lg sm:text-xl font-medium text-foreground mb-1 sm:mb-2">
-                    {reason.title}
-                  </h3>
-                  <p className="text-muted-foreground font-body text-sm sm:text-base leading-relaxed">
-                    {reason.description}
-                  </p>
-                </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>

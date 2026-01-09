@@ -19,6 +19,7 @@ const AboutSection = () => {
               <img
                 src={clinicInterior}
                 alt="Interior da clínica VD Hair"
+                loading="lazy"
                 className="w-full h-64 sm:h-80 lg:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 to-transparent" />
@@ -58,7 +59,7 @@ const AboutSection = () => {
               Vera Dias
               <span className="block text-gradient-gold">Terapeuta Capilar</span>
             </h2>
-            <div className="space-y-4 sm:space-y-6 text-muted-foreground font-body text-base sm:text-lg leading-relaxed">
+            <div className="space-y-4 sm:space-y-6 text-muted-foreground font-body text-lg sm:text-xl leading-relaxed">
               <p>
                 <span className="text-foreground font-medium">"Um espaço que cuida de você!"</span> — 
                 Este é o princípio que guia a VD Hair desde sua fundação. Mais que um salão, 
@@ -93,7 +94,7 @@ const AboutSection = () => {
                   className="flex items-center gap-3 p-3 sm:p-4 bg-card rounded-lg border border-border"
                 >
                   <item.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm font-medium text-foreground">{item.label}</span>
+                  <span className="text-base font-medium text-foreground">{item.label}</span>
                 </motion.div>
               ))}
             </div>

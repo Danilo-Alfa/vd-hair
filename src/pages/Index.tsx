@@ -5,8 +5,10 @@ import TreatmentsSection from "@/components/TreatmentsSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import GallerySection from "@/components/GallerySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
@@ -19,9 +21,11 @@ const Index = () => {
         <WhyChooseSection />
         <GallerySection />
         <TestimonialsSection />
+        <FAQSection />
         <CTASection />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

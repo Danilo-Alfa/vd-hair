@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import treatment1 from "@/assets/treatment-1.jpg";
 import treatment2 from "@/assets/treatment-2.jpg";
 import treatment3 from "@/assets/treatment-3.jpg";
@@ -12,15 +13,78 @@ const galleryImages = [
   { src: treatment3, alt: "Resultado de transformação capilar", category: "Resultados" },
   { src: clinicInterior, alt: "Interior da clínica VD Hair", category: "Espaço" },
   { src: heroBg, alt: "Cabelos saudáveis e brilhantes", category: "Resultados" },
-  { src: treatment1, alt: "Cuidado profissional", category: "Tratamentos" },
 ];
 
 const GallerySection = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
+  const openLightbox = (index: number) => {
+    setSelectedIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setSelectedIndex(null);
+  };
+
+  const goToPrevious = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === 0 ? galleryImages.length - 1 : selectedIndex - 1);
+  }, [selectedIndex]);
+
+  const goToNext = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === galleryImages.length - 1 ? 0 : selectedIndex + 1);
+  }, [selectedIndex]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+
+      switch (e.key) {
+        case "Escape":
+          closeLightbox();
+          break;
+        case "ArrowLeft":
+          goToPrevious();
+          break;
+        case "ArrowRight":
+          goToNext();
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex, goToPrevious, goToNext]);
+
+  // Prevent body scroll when lightbox is open
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedIndex]);
 
   return (
-    <section id="galeria" className="py-16 sm:py-20 lg:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="galeria" className="py-16 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div
+        className="absolute -bottom-20 left-1/3 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        style={{ y: parallaxY }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -36,8 +100,8 @@ const GallerySection = () => {
             Ambiente e
             <span className="block text-gradient-gold">Transformações</span>
           </h2>
-          <p className="text-muted-foreground font-body text-base sm:text-lg">
-            Conheça nosso espaço acolhedor e veja algumas das transformações 
+          <p className="text-muted-foreground font-body text-lg sm:text-xl">
+            Conheça nosso espaço acolhedor e veja algumas das transformações
             que realizamos com zelo e profissionalismo.
           </p>
         </motion.div>
@@ -54,11 +118,21 @@ const GallerySection = () => {
               className={`relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer group ${
                 index === 0 || index === 4 ? "row-span-2" : ""
               }`}
-              onClick={() => setSelectedImage(image.src)}
+              onClick={() => openLightbox(index)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openLightbox(index);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver imagem: ${image.alt}`}
             >
               <img
                 src={image.src}
                 alt={image.alt}
+                loading="lazy"
                 className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
                   index === 0 || index === 4 ? "h-48 sm:h-64 lg:h-full" : "h-40 sm:h-48 lg:h-64"
                 }`}
@@ -74,34 +148,91 @@ const GallerySection = () => {
         </div>
 
         {/* Note */}
-        <motion.p
+        {/* <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="text-center text-muted-foreground text-xs sm:text-sm mt-6 sm:mt-8 italic"
         >
           * As imagens podem ser facilmente substituídas por fotos reais da clínica e resultados de tratamentos.
-        </motion.p>
+        </motion.p> */}
       </div>
 
       {/* Lightbox */}
-      {selectedImage && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-charcoal/90 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <motion.img
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            src={selectedImage}
-            alt="Imagem ampliada"
-            className="max-w-full max-h-[90vh] rounded-xl object-contain"
-          />
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {selectedIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-charcoal/95 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+              aria-label="Fechar galeria"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Navigation - Previous */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevious();
+              }}
+              className="absolute left-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+              aria-label="Imagem anterior"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            {/* Navigation - Next */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNext();
+              }}
+              className="absolute right-16 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+              aria-label="Próxima imagem"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Image */}
+            <motion.div
+              key={selectedIndex}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative max-w-[90vw] max-h-[85vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={galleryImages[selectedIndex].src}
+                alt={galleryImages[selectedIndex].alt}
+                className="max-w-full max-h-[85vh] rounded-xl object-contain"
+              />
+
+              {/* Image info */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-charcoal/80 to-transparent rounded-b-xl">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full mb-2">
+                  {galleryImages[selectedIndex].category}
+                </span>
+                <p className="text-white text-sm">{galleryImages[selectedIndex].alt}</p>
+              </div>
+            </motion.div>
+
+            {/* Image counter */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+              {selectedIndex + 1} / {galleryImages.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

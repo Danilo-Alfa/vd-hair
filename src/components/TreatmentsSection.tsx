@@ -1,6 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Sparkles, Droplets, Scissors, Eye, Leaf, Zap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { TiltCard } from "@/components/ui/TiltCard";
+import { useRef } from "react";
 
 const treatments = [
   {
@@ -42,9 +44,26 @@ const treatments = [
 ];
 
 const TreatmentsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   return (
-    <section id="tratamentos" className="py-16 sm:py-20 lg:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="tratamentos" className="py-16 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+      {/* Parallax Background Elements */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        style={{ y: backgroundY }}
+      />
+      <motion.div
+        className="absolute -bottom-20 -left-20 w-96 h-96 bg-primary/3 rounded-full blur-3xl pointer-events-none"
+        style={{ y: backgroundY }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -76,34 +95,41 @@ const TreatmentsSection = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <Card className="h-full bg-card hover:shadow-medium transition-all duration-300 border-border group overflow-hidden">
-                <CardContent className="p-5 sm:p-6 lg:p-8">
-                  {/* Icon */}
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-gold rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <treatment.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
-                  </div>
+              <TiltCard
+                maxTilt={6}
+                spotlight={true}
+                glare={true}
+                className="h-full rounded-2xl"
+              >
+                <Card className="h-full bg-card hover:shadow-medium transition-all duration-300 border-border group overflow-hidden">
+                  <CardContent className="p-5 sm:p-6 lg:p-8">
+                    {/* Icon */}
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-gold rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <treatment.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
+                    </div>
 
-                  {/* Title & Description */}
-                  <h3 className="font-display text-xl sm:text-2xl font-medium text-foreground mb-2 sm:mb-3">
-                    {treatment.title}
-                  </h3>
-                  <p className="text-muted-foreground font-body text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
-                    {treatment.description}
-                  </p>
+                    {/* Title & Description */}
+                    <h3 className="font-display text-xl sm:text-2xl font-medium text-foreground mb-2 sm:mb-3">
+                      {treatment.title}
+                    </h3>
+                    <p className="text-muted-foreground font-body text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
+                      {treatment.description}
+                    </p>
 
-                  {/* Benefits */}
-                  <div className="flex flex-wrap gap-2">
-                    {treatment.benefits.map((benefit) => (
-                      <span
-                        key={benefit}
-                        className="inline-block px-2 sm:px-3 py-1 text-xs font-medium bg-secondary text-secondary-foreground rounded-full"
-                      >
-                        {benefit}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    {/* Benefits */}
+                    <div className="flex flex-wrap gap-2">
+                      {treatment.benefits.map((benefit) => (
+                        <span
+                          key={benefit}
+                          className="inline-block px-2 sm:px-3 py-1 text-xs font-medium bg-secondary text-secondary-foreground rounded-full"
+                        >
+                          {benefit}
+                        </span>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

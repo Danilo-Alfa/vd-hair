@@ -49,7 +49,7 @@
     --cream: 40 33% 96%;
     --nude: 25 30% 90%;
     --warm-white: 40 30% 99%;
-    --charcoal: 30 15% 20%;
+    --charcoal: 30 15% 15%;
 
     /* Gradients */
     --gradient-gold: linear-gradient(135deg, hsl(38, 65%, 50%) 0%, hsl(30, 60%, 60%) 100%);
@@ -101,6 +101,15 @@
     --sidebar-accent-foreground: 40 30% 90%;
     --sidebar-border: 30 15% 20%;
     --sidebar-ring: 38 65% 55%;
+
+    /* Custom tokens dark */
+    --gold: 38 65% 55%;
+    --gold-light: 40 60% 65%;
+    --gold-dark: 35 70% 45%;
+    --cream: 30 15% 15%;
+    --nude: 30 15% 18%;
+    --warm-white: 30 15% 12%;
+    --charcoal: 30 15% 8%;
   }
 }
 
@@ -132,16 +141,39 @@
     background: linear-gradient(135deg, hsl(38, 65%, 50%) 0%, hsl(30, 60%, 60%) 100%);
   }
 
+  /* Light theme warm gradient */
   .bg-gradient-warm {
     background: linear-gradient(135deg, hsl(40, 33%, 98%) 0%, hsl(35, 25%, 94%) 100%);
+  }
+
+  /* Dark theme - use darker warm tones */
+  .dark .bg-gradient-warm {
+    background: linear-gradient(135deg, hsl(30, 15%, 13%) 0%, hsl(30, 15%, 11%) 100%);
+  }
+
+  /* CTA section background - adapts to theme */
+  .bg-cta-section {
+    background: hsl(30, 15%, 20%);
+  }
+
+  .dark .bg-cta-section {
+    background: hsl(30, 15%, 8%);
   }
 
   .shadow-soft {
     box-shadow: 0 4px 20px -4px hsla(30, 20%, 20%, 0.08);
   }
 
+  .dark .shadow-soft {
+    box-shadow: 0 4px 20px -4px hsla(0, 0%, 0%, 0.3);
+  }
+
   .shadow-medium {
     box-shadow: 0 8px 30px -8px hsla(30, 20%, 20%, 0.12);
+  }
+
+  .dark .shadow-medium {
+    box-shadow: 0 8px 30px -8px hsla(0, 0%, 0%, 0.4);
   }
 
   .shadow-gold {
