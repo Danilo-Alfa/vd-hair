@@ -153,6 +153,26 @@
     background: linear-gradient(135deg, hsl(38, 65%, 50%) 0%, hsl(30, 60%, 60%) 100%);
   }
 
+  /* WhatsApp Green - #25D366 = hsl(142, 70%, 49%) */
+  .text-whatsapp {
+    color: #25D366;
+  }
+
+  .bg-whatsapp {
+    background-color: #25D366;
+  }
+
+  .text-gradient-green {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-green {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  }
+
   /* Light theme warm gradient */
   .bg-gradient-warm {
     background: linear-gradient(135deg, hsl(40, 33%, 98%) 0%, hsl(35, 25%, 94%) 100%);

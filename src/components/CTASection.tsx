@@ -76,7 +76,7 @@ const CTASection = () => {
                 size="lg"
                 variant="outline"
                 onClick={handleWhatsAppClick}
-                className="w-full bg-green-600 border-primary-foreground/30 text-white hover:bg-green-800 hover:text-white font-body font-medium text-lg px-8 py-6"
+                className="w-full bg-whatsapp border-primary-foreground/30 text-white hover:opacity-90 font-body font-medium text-lg px-8 py-6"
               >
                 <MessageCircle className="mr-1 h-5 w-5" />
                 WhatsApp

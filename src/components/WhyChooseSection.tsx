@@ -8,31 +8,37 @@ const reasons = [
     icon: Users,
     title: "Atendimento Personalizado",
     description: "Cada cliente é único. Desenvolvemos protocolos específicos para suas necessidades capilares individuais.",
+    useGreen: false,
   },
   {
     icon: Star,
     title: "Produtos Exclusivos",
     description: "Linha própria VD Hair com fórmulas desenvolvidas para resultados excepcionais e duradouros.",
+    useGreen: true,
   },
   {
     icon: Shield,
     title: "Ambiente Seguro",
     description: "Espaço acolhedor com todos os protocolos de higiene e segurança para seu conforto total.",
+    useGreen: false,
   },
   {
     icon: Clock,
     title: "Métodos Modernos",
     description: "Técnicas atualizadas e equipamentos de última geração para tratamentos eficientes.",
+    useGreen: true,
   },
   {
     icon: Leaf,
     title: "Abordagem Integrativa",
     description: "Tratamos a causa, não apenas os sintomas. Visão holística da saúde capilar.",
+    useGreen: true,
   },
   {
     icon: Check,
     title: "Resultados Comprovados",
     description: "Anos de transformações documentadas e clientes satisfeitas são nossa maior prova.",
+    useGreen: false,
   },
 ];
 
@@ -70,7 +76,7 @@ const WhyChooseSection = () => {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-4 sm:mb-6">
             Excelência em
-            <span className="block text-gradient-gold">Cada Detalhe</span>
+            <span className="block text-gradient-green">Cada Detalhe</span>
           </h2>
           <p className="text-muted-foreground font-body text-base sm:text-lg">
             Nosso compromisso é oferecer uma experiência única de cuidado e transformação, 
@@ -93,8 +99,8 @@ const WhyChooseSection = () => {
                 spotlightSize={350}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <reason.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${reason.useGreen ? 'bg-whatsapp/10' : 'bg-primary/10'}`}>
+                    <reason.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${reason.useGreen ? 'text-whatsapp' : 'text-primary'}`} />
                   </div>
                   <div>
                     <h3 className="font-display text-lg sm:text-xl font-medium text-foreground mb-1 sm:mb-2">

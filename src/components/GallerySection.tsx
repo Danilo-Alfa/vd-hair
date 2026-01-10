@@ -98,7 +98,7 @@ const GallerySection = () => {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-4 sm:mb-6">
             Ambiente e
-            <span className="block text-gradient-gold">Transformações</span>
+            <span className="block text-gradient-green">Transformações</span>
           </h2>
           <p className="text-muted-foreground font-body text-lg sm:text-xl">
             Conheça nosso espaço acolhedor e veja algumas das transformações

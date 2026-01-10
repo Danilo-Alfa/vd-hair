@@ -10,36 +10,42 @@ const treatments = [
     title: "Terapia Capilar Integrativa",
     description: "Tratamento completo que une técnicas avançadas para restaurar a saúde do couro cabeludo e dos fios.",
     benefits: ["Fortalecimento", "Crescimento", "Brilho intenso"],
+    useGreen: false,
   },
   {
     icon: Droplets,
     title: "Reabilitação Capilar",
     description: "Protocolo intensivo para cabelos danificados, devolvendo hidratação profunda, leveza e brilho excepcional.",
     benefits: ["Hidratação profunda", "Reconstrução", "Maciez"],
+    useGreen: true,
   },
   {
     icon: Zap,
     title: "Progressiva VD Hair",
     description: "Fórmula exclusiva da marca que alinha os fios com brilho, movimento e naturalidade incomparáveis.",
     benefits: ["Alinhamento", "Movimento natural", "Durabilidade"],
+    useGreen: false,
   },
   {
     icon: Leaf,
     title: "Esfoliação Capilar",
     description: "Limpeza profunda do couro cabeludo, removendo impurezas e preparando os fios para tratamentos intensivos.",
     benefits: ["Purificação", "Oxigenação", "Renovação"],
+    useGreen: true,
   },
   {
     icon: Eye,
     title: "Design de Sobrancelha",
     description: "Técnica precisa que valoriza seu olhar, harmonizando as sobrancelhas com seus traços faciais únicos.",
     benefits: ["Harmonização", "Precisão", "Naturalidade"],
+    useGreen: false,
   },
   {
     icon: Scissors,
     title: "Micropigmentação",
     description: "Arte aplicada à beleza, criando definição e preenchimento natural para sobrancelhas perfeitas.",
     benefits: ["Definição", "Preenchimento", "Longa duração"],
+    useGreen: true,
   },
 ];
 
@@ -104,8 +110,8 @@ const TreatmentsSection = () => {
                 <Card className="h-full bg-card hover:shadow-medium transition-all duration-300 border-border group overflow-hidden">
                   <CardContent className="p-5 sm:p-6 lg:p-8">
                     {/* Icon */}
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-gold rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <treatment.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 ${treatment.useGreen ? 'bg-gradient-green' : 'bg-gradient-gold'}`}>
+                      <treatment.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
 
                     {/* Title & Description */}

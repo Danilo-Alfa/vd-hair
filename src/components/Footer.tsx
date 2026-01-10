@@ -63,7 +63,7 @@ const Footer = () => {
               </a>
               <button
                 onClick={handlePhoneClick}
-                className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-whatsapp/20 rounded-full flex items-center justify-center hover:bg-whatsapp hover:text-white transition-all duration-300 text-whatsapp"
                 aria-label="Entrar em contato pelo WhatsApp"
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -149,7 +149,7 @@ const Footer = () => {
                   onClick={handlePhoneClick}
                   className="flex items-center gap-2 sm:gap-3 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-primary" />
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-whatsapp" />
                   <span className="font-body text-base sm:text-lg">WhatsApp</span>
                 </button>
               </li>

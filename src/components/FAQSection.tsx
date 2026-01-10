@@ -65,7 +65,7 @@ const FAQSection = () => {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-4 sm:mb-6">
             Perguntas
-            <span className="block text-gradient-gold">Frequentes</span>
+            <span className="block text-gradient-green">Frequentes</span>
           </h2>
           <p className="text-muted-foreground font-body text-lg sm:text-xl">
             Tire suas dúvidas sobre nossos tratamentos e serviços.
